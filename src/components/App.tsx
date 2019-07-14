@@ -8,10 +8,9 @@ import {selectMemberType, MemberState, MemberType} from '../store/member';
 import {
   updateSelectedProductIds,
   clearSelectedProductIds,
-  extractPurchasableProductList,
-  calculateTotalPrice,
-  requestPurchase,
+  productsDerivedDataSelector,
   ProductsState,
+  ProductsDerivedData,
 } from '../store/products';
 
 import SelectMemberTypePage from './SelectMemberTypePage';
@@ -21,6 +20,14 @@ const App: React.FC = () => {
   const member = useSelector((state: RootState): MemberState => state.member);
   const products = useSelector(
     (state: RootState): ProductsState => state.products
+  );
+  const {
+    totalPrice,
+    requestPurchase: purchase,
+    purchasableProductList: productList,
+  } = useSelector(
+    (state: RootState): ProductsDerivedData =>
+      productsDerivedDataSelector(state)
   );
   const dispatch = useDispatch();
 
@@ -34,21 +41,6 @@ const App: React.FC = () => {
         dispatch(actionCreator());
       });
     }, [hasDataAlready]);
-  };
-
-  const productList = extractPurchasableProductList({
-    productList: products.productList,
-    selectedMember: member.selectedMember,
-  });
-  const totalPrice = calculateTotalPrice({
-    selectedProductIds: products.selectedProductIds,
-    productList,
-  });
-  const purchase = async (): Promise<void> => {
-    requestPurchase({
-      selectedMember: member.selectedMember,
-      selectedProductIds: products.selectedProductIds,
-    });
   };
 
   const bindedSelectMemberType = useCallback(
