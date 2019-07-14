@@ -1,7 +1,9 @@
 import {Dispatch, Action} from 'redux';
 import {ThunkAction} from 'redux-thunk';
+import {createSelector} from 'reselect';
 
 import {fetchProductsApi, purchaseApi} from '../api';
+import {RootState} from './index';
 import {isPremiumMember, MemberType} from './member';
 
 export interface Product {
@@ -14,6 +16,12 @@ export interface Product {
 export interface ProductsState {
   productList: Product[];
   selectedProductIds: number[];
+}
+
+export interface ProductsDerivedData {
+  purchasableProductList: Product[];
+  totalPrice: number;
+  requestPurchase: () => Promise<void>;
 }
 
 enum ActionTypes {
@@ -161,7 +169,7 @@ const PREMIUM_DISCOUNT_PERCENTAGE = 10;
 const applyPremiumDiscount = (originalPrice: number): number =>
   originalPrice - Math.floor(originalPrice / PREMIUM_DISCOUNT_PERCENTAGE);
 
-export const extractPurchasableProductList = ({
+const extractPurchasableProductList = ({
   productList,
   selectedMember,
 }: {
@@ -185,7 +193,7 @@ export const extractPurchasableProductList = ({
     );
 };
 
-export const calculateTotalPrice = ({
+const calculateTotalPrice = ({
   selectedProductIds,
   productList,
 }: {
@@ -199,7 +207,7 @@ export const calculateTotalPrice = ({
     return acc;
   }, 0);
 
-export const requestPurchase = async ({
+const requestPurchase = async ({
   selectedMember,
   selectedProductIds,
 }: {
@@ -209,3 +217,27 @@ export const requestPurchase = async ({
   if (!selectedMember) throw new Error('Member type is null.');
   purchaseApi(selectedProductIds, isPremiumMember(selectedMember));
 };
+
+const getProductsState = (state: RootState) => state.products;
+const getSelectedMember = (state: RootState) => state.member.selectedMember;
+
+export const productsDerivedDataSelector = createSelector(
+  [getProductsState, getSelectedMember],
+  (productsState, selectedMember) => {
+    const {productList, selectedProductIds} = productsState;
+    const purchasableProductList = extractPurchasableProductList({
+      productList,
+      selectedMember,
+    });
+
+    return {
+      purchasableProductList,
+      totalPrice: calculateTotalPrice({
+        selectedProductIds,
+        productList: purchasableProductList,
+      }),
+      requestPurchase: () =>
+        requestPurchase({selectedMember, selectedProductIds}),
+    };
+  }
+);
