@@ -18,7 +18,7 @@
     "type-check": "yarn tsc",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix src/",
-    "test": "jest"
+    "test:unit": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
