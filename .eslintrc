@@ -4,6 +4,9 @@
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint"
   ],
+  "env": {
+    "jest": true
+  },
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint"
