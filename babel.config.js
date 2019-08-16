@@ -19,7 +19,7 @@ const presets = [
   ['@babel/preset-typescript'],
 ];
 
-const plugins = [];
+const plugins = ['react-hot-loader/babel'];
 
 if (process.env.NODE_ENV === 'test') {
   presets.push(['power-assert']);
