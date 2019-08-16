@@ -1,6 +1,7 @@
 import React, {useEffect, useCallback} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
+import {hot} from 'react-hot-loader/root';
 
 import {PAGE_PATHS, extractActionCreatorsToUseOnMounted} from '../pages';
 import {RootState} from '../store';
@@ -93,4 +94,4 @@ const App: React.FC = () => {
     </BrowserRouter>
   );
 };
-export default App;
+export default hot(App);

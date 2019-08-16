@@ -73,6 +73,9 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+      },
     },
     plugins,
     optimization,
@@ -80,6 +83,7 @@ module.exports = (env, argv) => {
       contentBase: path.resolve(__dirname, OUTPUT_DIR_NAME),
       host: '0.0.0.0',
       disableHostCheck: true,
+      hot: true,
       historyApiFallback: true,
     },
   };
