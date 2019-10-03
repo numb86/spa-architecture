@@ -52,7 +52,7 @@
     "jest-puppeteer": "^4.3.0",
     "license-info-webpack-plugin": "^2.0.0",
     "power-assert": "^1.6.1",
-    "puppeteer": "^1.19.0",
+    "puppeteer": "^1.20.0",
     "react-test-renderer": "^16.10.1",
     "terser-webpack-plugin": "^1.2.2",
     "ts-jest": "^24.0.2",
