@@ -64,7 +64,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
     "@hot-loader/react-dom": "^16.9.0",
-    "core-js": "^3.1.4",
+    "core-js": "^3.2.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.14",
