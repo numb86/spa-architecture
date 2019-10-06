@@ -10,5 +10,14 @@ export interface RootState {
 }
 
 const reducer = combineReducers({member, products});
-const store: Store<RootState> = createStore(reducer, applyMiddleware(thunk));
+const store: Store<RootState> = createStore(
+  reducer,
+  /* eslint-disable no-underscore-dangle */
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+        applyMiddleware(thunk)
+      )
+    : applyMiddleware(thunk)
+  /* eslint-enable no-underscore-dangle */
+);
 export default store;
