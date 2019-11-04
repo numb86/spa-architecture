@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {Product} from '../store/products';
 
-interface Props extends RouteComponentProps<{}> {
+interface Props {
   useFetchApi: (hasDataAlready?: boolean) => void;
   productList: Product[];
   selectedProductIds: number[];
@@ -24,9 +24,9 @@ const SelectProductsPage: React.FC<Props> = ({
   updateSelectedProductIds,
   clearSelectedProductIds,
   purchase,
-  history,
 }) => {
   const [isAbleToPurchase, setIsAbleToPurchase] = useState(false);
+  const history = useHistory();
 
   useFetchApi(productList.length > 0);
 
@@ -89,4 +89,4 @@ const SelectProductsPage: React.FC<Props> = ({
     </>
   );
 };
-export default withRouter(SelectProductsPage);
+export default SelectProductsPage;
