@@ -63,33 +63,25 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route
-          exact
-          path={PAGE_PATHS.MEMBER}
-          render={(): React.ReactElement => (
-            <SelectMemberTypePage
-              useFetchApi={useFetchApi}
-              memberList={member.memberList}
-              selectedMember={member.selectedMember}
-              selectMemberType={bindedSelectMemberType}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={PAGE_PATHS.PRODUCTS}
-          render={(): React.ReactElement => (
-            <SelectProductsPage
-              useFetchApi={useFetchApi}
-              productList={productList}
-              selectedProductIds={products.selectedProductIds}
-              totalPrice={totalPrice}
-              updateSelectedProductIds={bindedUpdateSelectedProductIds}
-              clearSelectedProductIds={bindedClearSelectedProductIds}
-              purchase={purchase}
-            />
-          )}
-        />
+        <Route exact path={PAGE_PATHS.MEMBER}>
+          <SelectMemberTypePage
+            useFetchApi={useFetchApi}
+            memberList={member.memberList}
+            selectedMember={member.selectedMember}
+            selectMemberType={bindedSelectMemberType}
+          />
+        </Route>
+        <Route exact path={PAGE_PATHS.PRODUCTS}>
+          <SelectProductsPage
+            useFetchApi={useFetchApi}
+            productList={productList}
+            selectedProductIds={products.selectedProductIds}
+            totalPrice={totalPrice}
+            updateSelectedProductIds={bindedUpdateSelectedProductIds}
+            clearSelectedProductIds={bindedClearSelectedProductIds}
+            purchase={purchase}
+          />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {isPremiumMember, MemberType} from '../store/member';
 import {validatePremiumCodeApi} from '../api';
 
-interface Props extends RouteComponentProps<{}> {
+interface Props {
   useFetchApi: (hasDataAlready?: boolean) => void;
   memberList: MemberType[];
   selectedMember: MemberType | null;
@@ -18,11 +18,11 @@ const SelectMemberTypePage: React.FC<Props> = ({
   memberList,
   selectedMember,
   selectMemberType,
-  history,
 }) => {
   const [premiumCode, setPremiumCode] = useState('');
   const [isAbleToPageAdvance, setIsAbleToPageAdvance] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
 
   useFetchApi(memberList.length > 0);
 
@@ -123,4 +123,4 @@ const SelectMemberTypePage: React.FC<Props> = ({
     </>
   );
 };
-export default withRouter(SelectMemberTypePage);
+export default SelectMemberTypePage;
